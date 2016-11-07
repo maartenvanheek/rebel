@@ -84,7 +84,8 @@ var SpecRenderer = function() {
 
     // Add states
     specification.states.forEach(function(state) {
-      g.setNode(state.id, {label: state.label, shape: state.initial ? "initial" : state.final ? "final" : "rect" });
+      g.setNode(state.id, {label: state.label, shape: state.initial ? "initial" : state.final ? "final" : "rect", style: "fill: #afa"});
+      // g.setNode(state.id, {style: "fill: #afa"});
       g.setParent(state.id, groupId);
     });
 
