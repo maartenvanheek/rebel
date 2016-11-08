@@ -270,26 +270,32 @@ var SpecRenderer = function () {
                 return styleTooltip(g.node(v));
             })
             .each(function (v) {
-                // console.log(v); // VIA
-                // console.log(g);
                 $(this).tipsy({gravity: "w", opacity: 0.8, html: true});
             });
 
         // with g.node you can select both events and transitions
+        var state_regex = /state_([a-zA-Z]+)/;
+        var event_regex = /event_([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]+)/;
 
-        inner.selectAll("g.node")
-            .on("click", function(id){
-                console.log("Clicked node " + id);
-            });
+        // inner.selectAll("g.node")
+        //     .on("click", function(id){
+        //         console.log("Clicked node " + id);
+        //     });
 
         inner.selectAll("g.node.edgeNode")
+            .filter(function(id){
+                var st = state_regex.exec(currentState)[1];
+                var ev = event_regex.exec(id)[1];
+                console.log("st + ev" + st + ev);
+                return st === ev;
+            })
             .on("click", function(id){
-                console.log("edgeNodeClick");
+                console.log("edgeNodeClick " + id);
             });
 
         inner.selectAll("g.node.stateNode")
             .on("click", function(id){
-                console.log("stateNodeClick");
+                console.log("stateNodeClick " + id);
             });
 
         var initialPlacement = function (svgViewport) {
