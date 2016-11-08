@@ -273,28 +273,21 @@ var SpecRenderer = function () {
                 $(this).tipsy({gravity: "w", opacity: 0.8, html: true});
             });
 
-        // with g.node you can select both events and transitions
         var state_regex = /state_([a-zA-Z]+)/;
         var event_regex = /event_([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]+)/;
 
-        // inner.selectAll("g.node")
-        //     .on("click", function(id){
-        //         console.log("Clicked node " + id);
-        //     });
-
         inner.selectAll("g.node.edgeNode")
             .filter(function(id){
-                var st = state_regex.exec(currentState)[1];
-                var ev = event_regex.exec(id)[1];
-                console.log("st + ev" + st + ev);
-                return st === ev;
+                return state_regex.exec(currentState)[1] === event_regex.exec(id)[1];
             })
             .on("click", function(id){
                 console.log("edgeNodeClick " + id);
+                currentState = "state_" + event_regex.exec(id)[3];
             });
 
         inner.selectAll("g.node.stateNode")
             .on("click", function(id){
+                // do something useful, like show state
                 console.log("stateNodeClick " + id);
             });
 
@@ -320,7 +313,8 @@ var SpecRenderer = function () {
 
         return {
             graph: g,
-            initialPlacement: initialPlacement
+            initialPlacement: initialPlacement,
+            currentState: currentState
         }
     };
 

@@ -235,7 +235,7 @@
 
             currentSpec = finder.findSpec(fqnOfSpec);
             var svg = d3.select("svg");
-            var currentState = "state_received";
+            var currentState = "state_init";
 //            g = (currentSpec !== undefined) ? SpecRenderer.render(currentSpec, svg) : SpecRenderer.render(noSpecFound, svg);
             g = (currentSpec !== undefined) ? SpecRenderer.render(currentSpec, currentState, svg) : SpecRenderer.render(noSpecFound, null, svg);
 
