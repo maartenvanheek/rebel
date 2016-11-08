@@ -95,9 +95,9 @@ var SpecRenderer = function () {
             g.setNode(state.id, {
                 label: state.label,
                 shape: state.initial ? "initial" : state.final ? "final" : "rect",
-                style: state.id === currentState? "fill: #afa" : state.initial ? "fill: #000" : "fill: none"
+                style: state.id === currentState? "fill: #afa" : state.initial ? "fill: #000" : "fill: none",
+                class: "stateNode"
             });
-            // g.setNode(state.id, {style: "fill: #afa"});
             g.setParent(state.id, groupId);
         });
 
@@ -106,7 +106,6 @@ var SpecRenderer = function () {
             g.setNode(event.id, {
                 label: event.label,
                 shape: "rect",
-                // style: "fill: #afa",
                 class: "edgeNode",
                 doc: "doc" in event ? event.doc : "",
                 config: "config" in event ? event.config : [],
@@ -271,7 +270,26 @@ var SpecRenderer = function () {
                 return styleTooltip(g.node(v));
             })
             .each(function (v) {
-                $(this).tipsy({gravity: "w", opacity: 1, html: true});
+                // console.log(v); // VIA
+                // console.log(g);
+                $(this).tipsy({gravity: "w", opacity: 0.8, html: true});
+            });
+
+        // with g.node you can select both events and transitions
+
+        inner.selectAll("g.node")
+            .on("click", function(id){
+                console.log("Clicked node " + id);
+            });
+
+        inner.selectAll("g.node.edgeNode")
+            .on("click", function(id){
+                console.log("edgeNodeClick");
+            });
+
+        inner.selectAll("g.node.stateNode")
+            .on("click", function(id){
+                console.log("stateNodeClick");
             });
 
         var initialPlacement = function (svgViewport) {
