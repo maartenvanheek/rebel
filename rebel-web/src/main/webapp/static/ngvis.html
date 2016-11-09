@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Rebel Specification Viewer</title>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
+
+    <!--Original scripts-->
+    <!--<script src="lib/external/jquery-1.12.0.min.js"></script>-->
+    <!--<script src="lib/external/jquery-ui.min.js"></script>-->
+    <!--<script src="lib/external/handlebars.min-latest.js"></script>-->
+    <script src="lib/external/d3.v3.min.js" charset="utf-8"></script>
+    <script src="lib/external/dagre-d3.js"></script>
+    <script src="lib/external/micromarkdown.js"></script>
+    <script src="lib/specificationVisualizer.js"></script>
+    <!--<script src="lib/specificationFinder.js"></script>-->
+    <!--<link rel="stylesheet" href="lib/external/reset.css">-->
+    <!--<link rel="stylesheet" href="lib/external/tipsy.css">-->
+    <script src="lib/external/tipsy.js"></script>
+
+    <link rel="stylesheet" href="lib/layout.css">
+    <script src="specifications.js"></script>
+
+    <!--angular scripts-->
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" data-require="angular.js@1.5.x"
+            data-semver="1.5.8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+    <script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>
+
+    <!--Custom application-->
+    <script src="application.js"></script>
+    <script src="specSelect.js"></script>
+
+</head>
+<body ng-app="visualApp" ng-controller="specCtrl as vm">
+<div>
+    <h1>Top</h1>
+    <form name="selectionForm">
+        <label for="specSelect">Select specification:</label>
+        <select name="specSelect" id="specSelect"
+                ng-options="spec.name for spec in vm.specs"
+                ng-model="vm.selectedSpec"
+                ng-change="vm.showSpec()"></select>
+    </form>
+    {{vm.selectedSpec.name}}
+    <button ng-click="vm.showSpec()">Show</button>
+</div>
+<div id="main">
+    <h2>Visualisation</h2>
+    <article>
+        <div id="viz">
+            <svg id="graph" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+                <g/>
+            </svg>
+        </div>
+    </article>
+</div>
+
+</body>
+</html>
+
+<!--ng-options="spec.name for spec in vm.specs track by spec.id"-->

@@ -1,25 +1,25 @@
 <!doctype html>
-<head>
-    <meta charset="utf-8">
-    <title>Rebel Specification Viewer</title>
+    <head>
+        <meta charset="utf-8">
+        <title>Rebel Specification Viewer</title>
 
-    <script src="lib/external/jquery-1.12.0.min.js"></script>
-    <script src="lib/external/jquery-ui.min.js"></script>
-    <script src="lib/external/handlebars.min-latest.js"></script>
-    <script src="lib/external/d3.v3.min.js" charset="utf-8"></script>
-    <script src="lib/external/dagre-d3.js"></script>
-    <script src="lib/external/micromarkdown.js"></script>
-    <script src="lib/specificationVisualizer.js"></script>
-    <script src="lib/specificationFinder.js"></script>
+        <script src="lib/external/jquery-1.12.0.min.js"></script>
+        <script src="lib/external/jquery-ui.min.js"></script>
+        <script src="lib/external/handlebars.min-latest.js"></script>
+        <script src="lib/external/d3.v3.min.js" charset="utf-8"></script>
+        <script src="lib/external/dagre-d3.js"></script>
+        <script src="lib/external/micromarkdown.js"></script>
+        <script src="lib/specificationVisualizer.js"></script>
+        <script src="lib/specificationFinder.js"></script>
 
-    <link rel="stylesheet" href="lib/external/reset.css">
+        <link rel="stylesheet" href="lib/external/reset.css">
 
-    <link rel="stylesheet" href="lib/external/tipsy.css">
-    <script src="lib/external/tipsy.js"></script>
+        <link rel="stylesheet" href="lib/external/tipsy.css">
+        <script src="lib/external/tipsy.js"></script>
 
-    <link rel="stylesheet" href="lib/layout.css">
-    <script src="specifications.js"></script>
-</head>
+        <link rel="stylesheet" href="lib/layout.css">
+        <script src="specifications.js"></script>
+    </head>
 <body>
 
 <section>
@@ -236,6 +236,7 @@
             $("#welcome").addClass("dontshow");
 
             currentSpec = finder.findSpec(fqnOfSpec);
+//            currentSpec = specs[2];
             var svg = d3.select("svg");
             g = (currentSpec !== undefined) ? SpecRenderer.render(currentSpec, currentState, svg) : SpecRenderer.render(noSpecFound, null, svg);
 

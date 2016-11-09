@@ -264,13 +264,14 @@ var SpecRenderer = function () {
         // Run the renderer. This is what draws the final graph.
         render(inner, g);
 
-        inner.selectAll("g.node.edgeNode")
-            .attr("title", function (v) {
-                return styleTooltip(g.node(v));
-            })
-            .each(function (v) {
-                $(this).tipsy({gravity: "w", opacity: 0.8, html: true});
-            });
+        // inner.selectAll("g.node.edgeNode")
+        //     .attr("title", function (v) {
+        //         // console.log("v: ", v);
+        //         return styleTooltip(g.node(v));
+        //     })
+        //     .each(function (v) {
+        //         $(this).tipsy({gravity: "w", opacity: 0.8, html: true});
+        //     });
 
         var state_regex = /state_([a-zA-Z]+)/;
         var event_regex = /event_([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]+)/;
@@ -278,18 +279,16 @@ var SpecRenderer = function () {
         // select only edgenodes (i.e. transition label) that has FROM currentState
         inner.selectAll("g.node.edgeNode")
             .filter(function (id) {
+                // console.log(id);
                 return state_regex.exec(currentState)[1] === event_regex.exec(id)[1];
             })
             .on("click", function (id) {
+                // console.log(g.node(id));
+                if (g.node(id).params.length > 0){
+                    console.log("This is a long one");
+                }
                 currentState = "state_" + event_regex.exec(id)[3];
                 loadAndShowSpec(currentState);
-            });
-
-        // all stateNodes
-        inner.selectAll("g.node.stateNode")
-            .on("click", function (id) {
-                // do something useful, like show state
-                console.log("stateNodeClick " + id);
             });
 
         // reset graph with click on init node
