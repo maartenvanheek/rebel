@@ -204,7 +204,6 @@
 
     var finder = new SpecificationFinder(specs);
     var noSpecFound = new SpecRenderer.Specification("$NO_SPEC_FOUND$", "No specification found", "No specficiation could be found", {}, [], [], [], [], [], []);
-
     var specOverview = finder.getFlattenedSpecTree();
 
     $("#search").autocomplete({
@@ -217,7 +216,7 @@
             results: function () {
             }
         }
-    })
+    });
 
     function initializeGui() {
         mainNode.append(navigatorClosed());
@@ -227,7 +226,10 @@
         $("aside button.open").click(openAside);
     }
 
-    function loadAndShowSpec() {
+    function loadAndShowSpec(currentState) {
+        if(currentState === undefined){
+            currentState = "state_init";
+        }
         var fqnOfSpec = window.location.hash.substring(1);
         if (fqnOfSpec !== "") {
             $("#viz").removeClass("dontshow");
@@ -235,8 +237,6 @@
 
             currentSpec = finder.findSpec(fqnOfSpec);
             var svg = d3.select("svg");
-            var currentState = "state_init";
-//            g = (currentSpec !== undefined) ? SpecRenderer.render(currentSpec, svg) : SpecRenderer.render(noSpecFound, svg);
             g = (currentSpec !== undefined) ? SpecRenderer.render(currentSpec, currentState, svg) : SpecRenderer.render(noSpecFound, null, svg);
 
             centerSpec();

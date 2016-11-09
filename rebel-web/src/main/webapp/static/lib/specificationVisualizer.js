@@ -19,7 +19,7 @@ var SpecRenderer = function () {
         this.transitionsFromExternalMachines = transitionsFromExternalMachines
     };
 
-    var currentState = function(currentState){
+    var currentState = function (currentState) {
         this.currentState = currentState;
     };
 
@@ -95,7 +95,7 @@ var SpecRenderer = function () {
             g.setNode(state.id, {
                 label: state.label,
                 shape: state.initial ? "initial" : state.final ? "final" : "rect",
-                style: state.id === currentState? "fill: #afa" : state.initial ? "fill: #000" : "fill: none",
+                style: state.id === currentState ? state.final ? "fill: #f00" : "fill: #afa" : state.initial || state.final ? "fill: #000" : "fill: none",
                 class: "stateNode"
             });
             g.setParent(state.id, groupId);
@@ -215,8 +215,7 @@ var SpecRenderer = function () {
             shapeSvg.insert("circle")
                 .attr("cx", 0)
                 .attr("cy", 0)
-                .attr("r", 8)
-                .attr("fill", "#000")
+                .attr("r", 6)
                 .attr("label", "");
 
             node.intersect = function (point) {
@@ -276,19 +275,31 @@ var SpecRenderer = function () {
         var state_regex = /state_([a-zA-Z]+)/;
         var event_regex = /event_([a-zA-Z]+)_([a-zA-Z]+)_([a-zA-Z]+)/;
 
+        // select only edgenodes (i.e. transition label) that has FROM currentState
         inner.selectAll("g.node.edgeNode")
-            .filter(function(id){
+            .filter(function (id) {
                 return state_regex.exec(currentState)[1] === event_regex.exec(id)[1];
             })
-            .on("click", function(id){
-                console.log("edgeNodeClick " + id);
+            .on("click", function (id) {
                 currentState = "state_" + event_regex.exec(id)[3];
+                loadAndShowSpec(currentState);
             });
 
+        // all stateNodes
         inner.selectAll("g.node.stateNode")
-            .on("click", function(id){
+            .on("click", function (id) {
                 // do something useful, like show state
                 console.log("stateNodeClick " + id);
+            });
+
+        // reset graph with click on init node
+        inner.selectAll("g.node.stateNode")
+            .filter(function (id) {
+                return state_regex.exec(id)[1] === "init";
+            })
+            .on("click", function (id) {
+                currentState = id;
+                loadAndShowSpec(currentState);
             });
 
         var initialPlacement = function (svgViewport) {
