@@ -31,9 +31,4 @@ app.config(function ($logProvider) {
 app.run(['$log', function($log){
     $log.debug("in app.run");
     $log.debug(specs);
-    // TODO: might not need it anymore whence this goes in an ng select
-    // $(document).ready(function () {
-    //     showSpec(specs[0]);
-    // });
-
 }]);

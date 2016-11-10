@@ -288,7 +288,7 @@ var SpecRenderer = function () {
                     console.log("This is a long one");
                 }
                 currentState = "state_" + event_regex.exec(id)[3];
-                loadAndShowSpec(currentState);
+                $specSelect.showSpec(currentState);
             });
 
         // reset graph with click on init node
@@ -298,7 +298,7 @@ var SpecRenderer = function () {
             })
             .on("click", function (id) {
                 currentState = id;
-                loadAndShowSpec(currentState);
+                showSpec(currentState);
             });
 
         var initialPlacement = function (svgViewport) {

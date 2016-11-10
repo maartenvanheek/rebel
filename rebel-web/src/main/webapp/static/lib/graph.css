@@ -1,0 +1,139 @@
+.rect{
+    fill: #0ff;
+}
+
+.cluster rect {
+    fill: #ff0;
+    stroke: #000;
+}
+
+.cluster .label div {
+    padding: 10px 0;
+}
+
+.label {
+    margin: 10px 0;
+    text-align: center;
+    min-height: 100px;
+}
+
+.label p {
+    font-size: 0.7em;
+}
+
+.label p em {
+    font-weight: bold;
+}
+
+.node.fields.hide {
+    display: none;
+}
+.node.fields rect {
+    fill: #fff;
+}
+
+.node.fields .label {
+    text-align: left;
+}
+
+.node.fields table th {
+    font-weight: bold;
+    text-align: left;
+    padding-bottom: 5px;
+}
+
+.node rect {
+    stroke: #000;
+    fill: #ff0;
+    rx: 10;
+    ry: 10;
+}
+
+.node.edgeNode rect {
+    fill: #fff;
+    stroke: #fff;
+}
+
+.node.initial circle {
+}
+
+.node.initial text {
+    font-size: 0;
+}
+
+.node.accepting circle {
+    fill: #000;
+    margin: 2px;
+    border: 1px solid #000;
+    r: 8;
+}
+
+.node.accepting text {
+    font-size: 0;
+}
+
+.node.externalMachine rect {
+    fill: #fff;
+}
+
+.node.externalMachine.in rect {
+    fill: #eee;
+}
+
+.node .label {
+    margin: 10px 0;
+    text-align: center;
+}
+
+.node .label p {
+    font-size: 0.7em;
+}
+
+.label span.extendedBy {
+    display: block;
+    font-size: 0.7em;
+}
+
+.label span.inheritsFrom {
+    display: block;
+    font-size: 0.7em;
+}
+
+.node.externalMachine .label p {
+    font-size: 0.7em;
+}
+
+.edgePath path {
+    stroke: #000;
+    fill: #000;
+    stroke-width: 1.5px;
+}
+
+.edgePath.syncTo path {
+    stroke-dasharray: 5, 5;
+    stroke-width: 1.5px;
+    stroke: #aaa;
+    fill: #aaa
+}
+
+.edgePath.syncFrom path {
+    stroke-dasharray: 20, 20;
+    stroke-width: 1.5px;
+    stroke: #aaa;
+    fill: #aaa
+}
+
+.edgePath.hide path {
+    display: none;
+}
+
+.node.externalMachine.hide {
+    display: none;
+}
+
+.edgePath.specialisation path {
+    stroke-dasharray: 5, 5;
+    stroke-width: 1.5px;
+    stroke: #000;
+    /*fill: #aaa*/
+}
