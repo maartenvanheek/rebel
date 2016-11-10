@@ -1,0 +1,19 @@
+<div class="modal">
+    <div class="modal-header">
+        <p>Hi!</p>
+    </div>
+    <div class="modal-body">
+        <table class="table">
+            <thead>
+            <th>No idea</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="param in tvm.params"></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="button btn-default" ng-click="$close()">Accept</button>
+        <button class="button btn-danger" ng-click="$dismiss()">Cancel</button>
+    </div>
+</div>

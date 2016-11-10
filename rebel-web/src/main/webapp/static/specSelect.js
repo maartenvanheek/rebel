@@ -4,19 +4,37 @@
 'use strict';
 var app = angular.module('visualApp.selection', []);
 
-app.controller('specCtrl', ['$log','$http', function ($log, $http) {
+app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
     var vm = this;
 
     vm.specs = specs;
     vm.showSpec = showSpec;
+    vm.transition = transition;
+    vm.simpleModal = simpleModal;
+    vm.modaltest = modaltest;
+
+
     vm.selectedSpec = specs[0];
 
     vm.h = 200;
     vm.w = 500;
 
-    vm.lipsum ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Peccata paria. Sed ego in hoc resisto; Sed residamus, inquit, si placet. Cum praesertim illa perdiscere ludus esset. Duo Reges: constructio interrete. Sed ego in hoc resisto; In qua quid est boni praeter summam voluptatem, et eam sempiternam? At iam decimum annum in spelunca iacet.          Comprehensum, quod cognitum non habet? Murenam te accusante defenderem. Ut optime, secundum naturam affectum esse possit. Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Etenim semper illud extra est, quod arte comprehenditur. Post enim Chrysippum eum non sane est disputatum. Tum Quintus: Est plane, Piso, ut dicis, inquit";
+    vm.lipsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Peccata paria. Sed ego in hoc resisto; Sed residamus, inquit, si placet. Cum praesertim illa perdiscere ludus esset. Duo Reges: constructio interrete. Sed ego in hoc resisto; In qua quid est boni praeter summam voluptatem, et eam sempiternam? At iam decimum annum in spelunca iacet.          Comprehensum, quod cognitum non habet? Murenam te accusante defenderem. Ut optime, secundum naturam affectum esse possit. Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Etenim semper illud extra est, quod arte comprehenditur. Post enim Chrysippum eum non sane est disputatum. Tum Quintus: Est plane, Piso, ut dicis, inquit";
 
-    // showSpec(undefined);
+    function modaltest(){
+        console.log("in modaltest");
+        var modalInstance = $uibModal.open({
+            backdrop: true,
+            animation: true,
+            templateUrl: 'transitionModal.tpl.html',
+            controller: 'testModalCtrl',
+            controllerAs: 'tvm'
+
+        });
+        modalInstance.result.then(function (ok){
+            console.log("ok");
+        })
+    }
 
     function showSpec(currentState) {
         // $log.debug(specs);
@@ -319,10 +337,18 @@ app.controller('specCtrl', ['$log','$http', function ($log, $http) {
                 .on("click", function (id) {
                     // console.log(g.node(id));
                     if (g.node(id).params.length > 0) {
-                        console.log("This is a long one");
+                        $log.info("Parameters needed");
+                        $log.debug(g.node(id).params);
+                        vm.params = g.node(id).params;
+                        vm.transition()
+                            .then(function (results) {
+                                $log.debug("results: ", reusults);
+                                currentState = "state_" + event_regex.exec(id)[3];
+                                showSpec(currentState);
+                            }, function (error) {
+                                $log.warn("Did not succeed transition")
+                            });
                     }
-                    currentState = "state_" + event_regex.exec(id)[3];
-                    showSpec(currentState);
                 });
 
             // reset graph with click on init node
@@ -369,6 +395,55 @@ app.controller('specCtrl', ['$log','$http', function ($log, $http) {
         }
     }();
 
+    function transition() {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'transitionModal.tpl.html',
+            controller: 'transitionCtrl',
+            controllerAs: 'tvm',
+            resolve: {
+                params: function () {
+                    return vm.params;
+                }
+            }
+        });
+        modalInstance.result.then(function (results) {
+            if (results) {
+                $log.debug("Do something with modal result")
+            }
+        })
+    }
+
+    function simpleModal(){
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'simpleModal.tpl.html',
+            controller: 'smc',
+            controllerAs: 'svm',
+            name: "Simple name"
+        });
+        modalInstance.result.then(function (ok){
+            $log.info("returned from smc");
+        })
+    }
+
 
 }]);
 
+app.controller('transitionCtrl', ['$uibModalInstance', 'params',
+    function ($uibModalInstance, params) {
+        var tvm = this;
+        tvm.params = params;
+        tvm.close = function (result) {
+            $uibModalInstance.close(result);
+        }
+    }]);
+
+app.controller('testModalCtrl', ['$uibModalInstance',
+    function($uibModalInstance){
+        var tvm = this;
+        tvm.string = 'hi world';
+        tvm.close = function(result){
+            $uibModalInstance.close(result);
+        }
+    }]);
