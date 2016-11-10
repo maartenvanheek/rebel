@@ -3,7 +3,7 @@
 }
 
 .cluster rect {
-    fill: #ff0;
+    fill: #aaa;
     stroke: #000;
 }
 
@@ -12,6 +12,7 @@
 }
 
 .label {
+    color: #000;
     margin: 10px 0;
     text-align: center;
     min-height: 100px;
@@ -29,17 +30,19 @@
     display: none;
 }
 .node.fields rect {
-    fill: #fff;
+    fill: #0ff;
 }
 
 .node.fields .label {
+    color: #000;
     text-align: left;
 }
 
 .node.fields table th {
     font-weight: bold;
     text-align: left;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
+    /*THIS padding was the culprit*/
 }
 
 .node rect {
@@ -51,7 +54,7 @@
 
 .node.edgeNode rect {
     fill: #fff;
-    stroke: #fff;
+    stroke: none;
 }
 
 .node.initial circle {

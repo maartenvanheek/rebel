@@ -3,7 +3,7 @@
  */
 'use strict';
 var app = angular.module('visualApp', [
-    'ui.bootstrap',
+    // 'ui.bootstrap',
     'ui.router',
     'visualApp.selection'
 ]);

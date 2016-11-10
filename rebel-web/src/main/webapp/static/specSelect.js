@@ -4,7 +4,7 @@
 'use strict';
 var app = angular.module('visualApp.selection', []);
 
-app.controller('specCtrl', ['$log', function ($log) {
+app.controller('specCtrl', ['$log','$http', function ($log, $http) {
     var vm = this;
 
     vm.specs = specs;
@@ -14,7 +14,9 @@ app.controller('specCtrl', ['$log', function ($log) {
     vm.h = 200;
     vm.w = 500;
 
-    // vm.graph;
+    vm.lipsum ="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Peccata paria. Sed ego in hoc resisto; Sed residamus, inquit, si placet. Cum praesertim illa perdiscere ludus esset. Duo Reges: constructio interrete. Sed ego in hoc resisto; In qua quid est boni praeter summam voluptatem, et eam sempiternam? At iam decimum annum in spelunca iacet.          Comprehensum, quod cognitum non habet? Murenam te accusante defenderem. Ut optime, secundum naturam affectum esse possit. Quae qui non vident, nihil umquam magnum ac cognitione dignum amaverunt. Etenim semper illud extra est, quod arte comprehenditur. Post enim Chrysippum eum non sane est disputatum. Tum Quintus: Est plane, Piso, ut dicis, inquit";
+
+    // showSpec(undefined);
 
     function showSpec(currentState) {
         // $log.debug(specs);
@@ -127,7 +129,7 @@ app.controller('specCtrl', ['$log', function ($log) {
                 g.setNode(state.id, {
                     label: state.label,
                     shape: state.initial ? "initial" : state.final ? "final" : "rect",
-                    style: state.id === currentState ? state.final ? "fill: #f00" : "fill: #afa" : state.initial || state.final ? "fill: #000" : "fill: none",
+                    style: state.id === currentState ? state.final ? "fill: #f00" : "fill: #afa" : state.initial || state.final ? "fill: #000" : "fill: #f0f",
                     class: "stateNode"
                 });
                 g.setParent(state.id, groupId);
