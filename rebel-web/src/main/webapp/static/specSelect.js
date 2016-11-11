@@ -10,7 +10,6 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
     vm.specs = specs;
     vm.showSpec = showSpec;
     vm.transition = transition;
-    vm.simpleModal = simpleModal;
     vm.modaltest = modaltest;
 
 
@@ -331,25 +330,52 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
             // select only edgenodes (i.e. transition label) that has FROM currentState
             inner.selectAll("g.node.edgeNode")
                 .filter(function (id) {
-                    // console.log(id);
+                    if(state_regex.exec(currentState)[1] === event_regex.exec(id)[1]){
+                        $log.debug("currentState: ", currentState, "id: ", id);
+                    }
                     return state_regex.exec(currentState)[1] === event_regex.exec(id)[1];
                 })
                 .on("click", function (id) {
-                    // console.log(g.node(id));
+                    $log.debug("Node name: ", g.node(id).params);
                     if (g.node(id).params.length > 0) {
                         $log.info("Parameters needed");
                         $log.debug("Params: ", g.node(id).params);
                         vm.params = g.node(id).params;
-                        vm.transition()
-                            .then(function (results) {
-                                $log.debug("results: ", results);
-                                currentState = "state_" + event_regex.exec(id)[3];
-                                showSpec(currentState);
-                            }, function (error) {
-                                $log.warn("Did not succeed transition")
-                            });
+                        var $uibModalInstance = $uibModal.open({
+                            animation: true,
+                            templateUrl: 'transModal.tpl.html',
+                            controller: 'transitionCtrl',
+                            controllerAs: 'tvm',
+                            resolve: {
+                                params: function () {
+                                    return vm.params;
+                                }
+                            }
+                        });
+                        $uibModalInstance.result.then(function (results) {
+                            if (results) {
+                                $log.debug("Modal results: ", results);
+                                $log.debug("TODO: VALIDATION!");
+                                updateState(id);
+
+                            }
+                            else{
+                                $log.debug("No results");
+                            }
+                        }, function(error){
+                            $log.error("error: ", error);
+                        })
+                    }
+                    else{
+                        $log.debug("No params needed");
+                        updateState(id);
                     }
                 });
+
+            function updateState(id){
+                currentState = "state_" + event_regex.exec(id)[3];
+                showSpec(currentState);
+            }
 
             // reset graph with click on init node
             inner.selectAll("g.node.stateNode")
@@ -414,36 +440,14 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
         })
     }
 
-    function simpleModal(){
-        var modalInstance = $uibModal.open({
-            animation: true,
-            templateUrl: 'simpleModal.tpl.html',
-            controller: 'smc',
-            controllerAs: 'svm',
-            name: "Simple name"
-        });
-        modalInstance.result.then(function (ok){
-            $log.info("returned from smc");
-        })
-    }
-
-
 }]);
 
-app.controller('transitionCtrl', ['$uibModalInstance', 'params',
-    function ($uibModalInstance, params) {
+app.controller('transitionCtrl', ['$scope', '$uibModalInstance', 'params',
+    function ($scope, $uibModalInstance, params) {
+        console.log("modal params: ", params);
         var tvm = this;
         tvm.params = params;
         tvm.close = function (result) {
-            $uibModalInstance.close(result);
-        }
-    }]);
-
-app.controller('testModalCtrl', ['$uibModalInstance',
-    function($uibModalInstance){
-        var tvm = this;
-        tvm.string = 'hi world';
-        tvm.close = function(result){
             $uibModalInstance.close(result);
         }
     }]);

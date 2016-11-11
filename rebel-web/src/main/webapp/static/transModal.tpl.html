@@ -3,18 +3,21 @@
         <h2>Enter transition parameters:</h2>
     </div>
     <div class="modal-body">
-        <table class="table">
-            <thead>
-            <th>Parameter</th>
-            <th>Value</th>
-            </thead>
-            <tbody>
-            <tr ng-repeat="param in tvm.params"></tr>
-            </tbody>
-        </table>
+        <form id="transForm" novalidate>
+            <div class="form-group" ng-repeat="param in tvm.params" ng-class="{ 'has-error' : transFieldForm.{{param.name}}.$invalid }">
+                <ng-form name="transFieldForm">
+                    <label>{{param.name}}</label>
+                    <p>({{param.type}})</p>
+                    <input type="text" class="form-control" name="{{param.name}}" ng-model="param.value" size="5" required>
+                    <!--<p class="help-block" ng-show="transFieldForm.{{trans.name}}.$invalid">Valid Input Required</p>-->
+                </ng-form>
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <button class="button btn-default" ng-click="$close()">Accept</button>
+        {{tvm.params}}
+        {{tvm.params.value}}
+        <button class="button btn-default" ng-click="tvm.close(tvm.params)">Accept</button>
         <button class="button btn-danger" ng-click="$dismiss()">Cancel</button>
     </div>
 </div>
