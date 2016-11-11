@@ -8,39 +8,32 @@
             crossorigin="anonymous"></script>
 
     <!--Original scripts-->
-    <!--<script src="lib/external/jquery-1.12.0.min.js"></script>-->
-    <!--<script src="lib/external/jquery-ui.min.js"></script>-->
-    <!--<script src="lib/external/handlebars.min-latest.js"></script>-->
     <script src="lib/external/d3.v3.min.js" charset="utf-8"></script>
     <script src="lib/external/dagre-d3.js"></script>
     <script src="lib/external/micromarkdown.js"></script>
-    <!--<script src="lib/specificationVisualizer.js"></script>-->
-    <!--<script src="lib/specificationFinder.js"></script>-->
-    <!--<link rel="stylesheet" href="lib/external/reset.css">-->
-    <!--<link rel="stylesheet" href="lib/external/tipsy.css">-->
     <script src="lib/external/tipsy.js"></script>
 
 
     <script src="specifications.js"></script>
 
     <!--angular scripts-->
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" data-require="angular.js@1.5.x"
             data-semver="1.5.8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
-    <script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>
-
-    <!--Custom application-->
+    <!--<script src="https://cdn.rawgit.com/AngularClass/angular-websocket/v2.0.0/dist/angular-websocket.js"></script>-->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--Angular application-->
     <script src="application.js"></script>
     <script src="specSelect.js"></script>
 
     <!--CSS-->
     <!--<link rel="stylesheet" href="lib/layout.css">-->
     <link rel="stylesheet" href="lib/graph.css">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="lib/external/reset.css">-->
+    <!--<link rel="stylesheet" href="lib/external/tipsy.css">-->
+
 </head>
 
 <body ng-app="visualApp" ng-controller="specCtrl as vm" grph>
@@ -76,6 +69,12 @@
 
 </body>
 </html>
+
+<style>
+    .modal {
+        display: block;
+    }
+</style>
 
 <!--<style id="main">
 

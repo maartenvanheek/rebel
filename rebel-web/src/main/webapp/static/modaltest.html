@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FF</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js" data-require="angular.js@1.5.x"
+            data-semver="1.5.8"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.2.0/ui-bootstrap-tpls.js"></script>
+
+
+</head>
+<body ng-app="testApp" ng-controller="testCtrl">
+<button class="button" ng-click="modaltest()">Test modal</button>
+</body>
+</html>
+<script>
+    'use strict';
+    angular.module('testApp', [
+        'test.ctrl',
+        'ui.bootstrap'
+    ]);
+    angular.module('test.ctrl', []);
+    angular.module('test.ctrl')
+            .controller('testCtrl', ['$uibModal', '$scope', function ($uibModal, $scope) {
+                $scope.modaltest = function () {
+                    var $uibModalInstance = $uibModal.open({
+                        templateUrl: 'test.tpl.html',
+                        controller: 'modalCtrl',
+                        controllerAs: 'mcvm'
+                    });
+                    $uibModalInstance.result.then(function (ok) {
+                        console.log(ok);
+                    })
+                }
+            }]);
+    angular.module('test.ctrl')
+            .controller('modalCtrl', ['$uibModalInstance',
+                function ($uibModalInstance) {
+                    console.log("in modal");
+                }]);
+</script>

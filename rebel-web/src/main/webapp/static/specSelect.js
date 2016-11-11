@@ -23,15 +23,15 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
 
     function modaltest(){
         console.log("in modaltest");
-        var modalInstance = $uibModal.open({
+        var $uibModalInstance = $uibModal.open({
             backdrop: true,
-            animation: true,
-            templateUrl: 'transitionModal.tpl.html',
+            animation: false,
+            templateUrl: 'test.tpl.html',
             controller: 'testModalCtrl',
             controllerAs: 'tvm'
 
         });
-        modalInstance.result.then(function (ok){
+        $uibModalInstance.result.then(function (ok){
             console.log("ok");
         })
     }
@@ -338,11 +338,11 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
                     // console.log(g.node(id));
                     if (g.node(id).params.length > 0) {
                         $log.info("Parameters needed");
-                        $log.debug(g.node(id).params);
+                        $log.debug("Params: ", g.node(id).params);
                         vm.params = g.node(id).params;
                         vm.transition()
                             .then(function (results) {
-                                $log.debug("results: ", reusults);
+                                $log.debug("results: ", results);
                                 currentState = "state_" + event_regex.exec(id)[3];
                                 showSpec(currentState);
                             }, function (error) {
@@ -396,9 +396,9 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
     }();
 
     function transition() {
-        var modalInstance = $uibModal.open({
+        var $uibModalInstance = $uibModal.open({
             animation: true,
-            templateUrl: 'transitionModal.tpl.html',
+            templateUrl: 'transModal.tpl.html',
             controller: 'transitionCtrl',
             controllerAs: 'tvm',
             resolve: {
@@ -407,7 +407,7 @@ app.controller('specCtrl', ['$log', '$uibModal', function ($log, $uibModal) {
                 }
             }
         });
-        modalInstance.result.then(function (results) {
+        $uibModalInstance.result.then(function (results) {
             if (results) {
                 $log.debug("Do something with modal result")
             }
